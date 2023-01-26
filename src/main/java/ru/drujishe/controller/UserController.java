@@ -1,5 +1,6 @@
 package ru.drujishe.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -10,8 +11,9 @@ import ru.drujishe.service.UserService;
 @RequestMapping("/users")
 public class UserController {
 
-    private UserService userService;
+    private final UserService userService;
 
+    @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
     }
@@ -28,7 +30,7 @@ public class UserController {
         return "users/new";
     }
 
-    @PostMapping
+    @PostMapping(value = "/new")
     public String createUser(@ModelAttribute("user") User user) {
         userService.add(user);
         return "redirect:/users";
@@ -46,10 +48,15 @@ public class UserController {
         return "users/edit";
     }
 
-    @PatchMapping("/{id}")
+    @PostMapping("/{id}")
     public String update(@ModelAttribute("user") User user, @PathVariable("id") int id) {
         userService.update(id, user);
-        System.out.println("Произошло обновление!");
-        return "redirect:users/";
+        return "redirect:/users";
+    }
+
+    @GetMapping("/{id}/delete")
+    public String delete(@PathVariable("id") int id) {
+        userService.delete(id);
+        return "redirect:/users";
     }
 }

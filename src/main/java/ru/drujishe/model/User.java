@@ -4,14 +4,17 @@ package ru.drujishe.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "my_users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
     private String name;
     private String surname;
     private int age;
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public User() {
     }
@@ -22,7 +25,7 @@ public class User {
         this.age = age;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

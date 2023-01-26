@@ -1,6 +1,6 @@
 package ru.drujishe.dao;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.drujishe.model.User;
 
@@ -9,7 +9,7 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 
-@Component
+@Repository
 @Transactional
 public class UserDaoImp implements UserDao {
 
@@ -24,10 +24,7 @@ public class UserDaoImp implements UserDao {
 
     @Override
     public void update(int id, User updatedUser) {
-        User user = getUserById(id);
-        user.setAge(updatedUser.getAge());
-        user.setName(updatedUser.getName());
-        user.setSurname(updatedUser.getSurname());
+        manager.merge(updatedUser);
     }
 
     @Override
@@ -42,6 +39,6 @@ public class UserDaoImp implements UserDao {
 
     @Override
     public User getUserById(int id) {
-        return manager.createQuery("from User where User.id = " + id, User.class).getSingleResult();
+        return manager.createQuery("from User user where user.id = " + id, User.class).getSingleResult();
     }
 }

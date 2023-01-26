@@ -21,9 +21,11 @@
 <!--    </tr>-->
 <!--</table>-->
 
-<p th:text="'Фамилия' + ${user.surname}"/>
-<p th:text="'Имя' + ${user.name}"/>
-<p th:text="'Возраст' + ${user.age}"/>
+<p th:text="'Фамилия: ' + ${user.surname}"/>
+<p th:text="'Имя: ' + ${user.name}"/>
+<p th:text="'Возраст: ' + ${user.age}"/>
+<br>
+<h3> <a href="/users">Вернуться к списку пользователей</a> </h3>
 
 </body>
 </html>
